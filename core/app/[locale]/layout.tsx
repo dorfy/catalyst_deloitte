@@ -16,7 +16,6 @@ import { graphql } from '~/client/graphql';
 import { revalidate } from '~/client/revalidate-target';
 import { routing } from '~/i18n/routing';
 
-import { Notifications } from '../notifications';
 import { Providers } from '../providers';
 
 const RootLayoutMetadataQuery = graphql(`
@@ -94,7 +93,6 @@ export default async function RootLayout({ params, children }: Props) {
   return (
     <html className={clsx(fonts.map((f) => f.variable))} lang={locale}>
       <body>
-        <Notifications />
         <NextIntlClientProvider locale={locale} messages={messages}>
           <NuqsAdapter>
             <Providers>{children}</Providers>
