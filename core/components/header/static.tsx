@@ -1,3 +1,5 @@
+'use cache';
+
 import { getLocale, getTranslations } from 'next-intl/server';
 // import { cache } from 'react';
 
