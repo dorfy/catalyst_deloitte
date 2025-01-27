@@ -12,7 +12,7 @@ import { revalidate } from '~/client/revalidate-target';
 import { routing } from '~/i18n/routing';
 // import { getPreferredCurrencyCode } from '~/lib/currency';
 
-import { search } from './_actions/search';
+// import { search } from './_actions/search';
 // import { switchCurrency } from './_actions/switch-currency';
 import { switchLocale } from './_actions/switch-locale';
 import { HeaderFragment } from './fragment';
@@ -78,9 +78,9 @@ export const StaticHeader = async () => {
         cartHref: '/cart',
         cartLabel: t('Icons.cart'),
         searchHref: '/search',
-        searchLabel: t('Icons.search'),
-        searchParamName: 'term',
-        searchAction: search,
+        // searchLabel: t('Icons.search'),
+        // searchParamName: 'term',
+        // searchAction: search,
         links,
         logo: '',
         mobileMenuTriggerLabel: t('toggleNavigation'),
