@@ -1,5 +1,5 @@
 import { getLocale, getTranslations } from 'next-intl/server';
-import { cache } from 'react';
+// import { cache } from 'react';
 
 import { HeaderSection } from '@/vibes/soul/sections/header-section';
 import { LayoutQuery } from '~/app/[locale]/(default)/query';
@@ -15,14 +15,14 @@ import { search } from './_actions/search';
 import { switchLocale } from './_actions/switch-locale';
 import { HeaderFragment } from './fragment';
 
-const getLayoutData = cache(async () => {
+const getLayoutData = async () => {
   const { data: response } = await client.fetch({
     document: LayoutQuery,
     fetchOptions: { next: { revalidate } },
   });
 
   return readFragment(HeaderFragment, response).site;
-});
+};
 
 export const StaticHeader = async () => {
   const t = await getTranslations('Components.Header');
