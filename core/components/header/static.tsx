@@ -1,11 +1,11 @@
 import { getLocale, getTranslations } from 'next-intl/server';
-// import { cache } from 'react';
+import { cache } from 'react';
 
 import { HeaderSection } from '@/vibes/soul/sections/header-section';
-// import { LayoutQuery } from '~/app/[locale]/(default)/query';
-// import { client } from '~/client';
-// import { readFragment } from '~/client/graphql';
-// import { revalidate } from '~/client/revalidate-target';
+import { LayoutQuery } from '~/app/[locale]/(default)/query';
+import { client } from '~/client';
+import { readFragment } from '~/client/graphql';
+import { revalidate } from '~/client/revalidate-target';
 // import { logoTransformer } from '~/data-transformers/logo-transformer';
 import { routing } from '~/i18n/routing';
 // import { getPreferredCurrencyCode } from '~/lib/currency';
@@ -13,16 +13,16 @@ import { routing } from '~/i18n/routing';
 import { search } from './_actions/search';
 // import { switchCurrency } from './_actions/switch-currency';
 import { switchLocale } from './_actions/switch-locale';
-// import { HeaderFragment } from './fragment';
+import { HeaderFragment } from './fragment';
 
-// const getLayoutData = cache(async () => {
-//   const { data: response } = await client.fetch({
-//     document: LayoutQuery,
-//     fetchOptions: { next: { revalidate } },
-//   });
+const getLayoutData = cache(async () => {
+  const { data: response } = await client.fetch({
+    document: LayoutQuery,
+    fetchOptions: { next: { revalidate } },
+  });
 
-//   return readFragment(HeaderFragment, response).site;
-// });
+  return readFragment(HeaderFragment, response).site;
+});
 
 export const StaticHeader = async () => {
   const t = await getTranslations('Components.Header');
@@ -33,7 +33,7 @@ export const StaticHeader = async () => {
     label: enabledLocales.toLocaleUpperCase(),
   }));
 
-  // const data = await getLayoutData();
+  const data = await getLayoutData();
 
   // const currencyCode = await getPreferredCurrencyCode();
   // const currencies = data.currencies.edges
@@ -53,18 +53,18 @@ export const StaticHeader = async () => {
   //  To show a full list of categories, modify the `slice` method to remove the limit.
   //  Will require modification of navigation menu styles to accommodate the additional categories.
   //  */
-  // const links = data.categoryTree.slice(0, 6).map(({ name, path, children }) => ({
-  //   label: name,
-  //   href: path,
-  //   groups: children.map((firstChild) => ({
-  //     label: firstChild.name,
-  //     href: firstChild.path,
-  //     links: firstChild.children.map((secondChild) => ({
-  //       label: secondChild.name,
-  //       href: secondChild.path,
-  //     })),
-  //   })),
-  // }));
+  const links = data.categoryTree.slice(0, 6).map(({ name, path, children }) => ({
+    label: name,
+    href: path,
+    groups: children.map((firstChild) => ({
+      label: firstChild.name,
+      href: firstChild.path,
+      links: firstChild.children.map((secondChild) => ({
+        label: secondChild.name,
+        href: secondChild.path,
+      })),
+    })),
+  }));
 
   // const logo = data.settings ? logoTransformer(data.settings) : '';
 
@@ -79,7 +79,7 @@ export const StaticHeader = async () => {
         searchLabel: t('Icons.search'),
         searchParamName: 'term',
         searchAction: search,
-        links: [],
+        links,
         logo: '',
         mobileMenuTriggerLabel: t('toggleNavigation'),
         openSearchPopupLabel: t('Search.openSearchPopup'),
