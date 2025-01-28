@@ -27,6 +27,8 @@ const getLayoutData = async () => {
 };
 
 export const StaticHeader = async () => {
+  console.log('build static header');
+
   const t = await getTranslations('Components.Header');
   const locale = await getLocale();
 
@@ -67,6 +69,8 @@ export const StaticHeader = async () => {
       })),
     })),
   }));
+
+  console.log('links', links);
 
   // const logo = data.settings ? logoTransformer(data.settings) : '';
 
