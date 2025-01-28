@@ -1,7 +1,4 @@
-// 'use cache';
-
 import { getLocale, getTranslations } from 'next-intl/server';
-// import { cache } from 'react';
 
 import { HeaderSection } from '@/vibes/soul/sections/header-section';
 import { LayoutQuery } from '~/app/[locale]/(default)/query';
@@ -12,7 +9,6 @@ import { logoTransformer } from '~/data-transformers/logo-transformer';
 import { routing } from '~/i18n/routing';
 import { getPreferredCurrencyCode } from '~/lib/currency';
 
-// import { search } from './_actions/search';
 import { switchCurrency } from './_actions/switch-currency';
 import { switchLocale } from './_actions/switch-locale';
 import { HeaderFragment } from './fragment';
@@ -27,8 +23,6 @@ const getLayoutData = async () => {
 };
 
 export const StaticHeader = async () => {
-  console.log('build static header');
-
   const t = await getTranslations('Components.Header');
   const locale = await getLocale();
 
@@ -70,8 +64,6 @@ export const StaticHeader = async () => {
     })),
   }));
 
-  console.log('links', links);
-
   const logo = data.settings ? logoTransformer(data.settings) : '';
 
   return (
@@ -84,7 +76,6 @@ export const StaticHeader = async () => {
         searchHref: '/search',
         searchLabel: t('Icons.search'),
         searchParamName: 'term',
-        // searchAction: search,
         links,
         logo,
         mobileMenuTriggerLabel: t('toggleNavigation'),
