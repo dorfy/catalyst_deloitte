@@ -306,3 +306,5 @@ export default async function Category(props: Props) {
     </>
   );
 }
+
+export const experimental_ppr = false;
